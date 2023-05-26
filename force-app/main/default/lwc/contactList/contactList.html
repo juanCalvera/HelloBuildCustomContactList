@@ -1,0 +1,57 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <div class="slds-card">
+        <div class="header">     
+            <div class="title">
+                <lightning-icon icon-name="standard:contact" alternative-text="Contacts" title="Contacts"></lightning-icon>
+                <div class="slds-text-heading_medium">Contact List</div>
+            </div>
+            <div class="actions">
+                <lightning-combobox 
+                    name="sort"
+                    label="Status"
+                    variant="label-hidden"
+                    value={sortValue}
+                    placeholder="Sort..."
+                    options={sortOptions}
+                    dropdown-alignment="auto"
+                    onchange={handleSortChange} ></lightning-combobox>
+            </div>
+        </div>
+        <div class="table-container">
+            <lightning-datatable
+                    key-field="id"
+                    data={data}
+                    row-number-offset={rowOffset}
+                    hide-checkbox-column
+                    column-widths-mode="auto"
+                    columns={columns}>
+            </lightning-datatable>
+        </div>
+        <template if:true={loading}>
+            <div class="spinner-holder">
+                <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+            </div>
+        </template>
+        <div class="pagination">
+            <div class="pagination-left">
+                <lightning-combobox 
+                    class="results-combobox"
+                    placeholder={resultsPerPage}
+                    name="resultsPerPage"
+                    label="Results per page"
+                    value={resultsPerPage}
+                    options={resultsPerPageOptions}
+                    dropdown-alignment="auto"
+                    onchange={handleResultsPerPageChange} ></lightning-combobox>
+                
+            </div>
+            <div class="pagination-center">
+                <lightning-button-icon data-id="left-button" icon-name="utility:left"  alternative-text="Left" title="Left" class="disabled-button" onclick={handlePageLeft}>
+                </lightning-button-icon>
+                <div class="slds-text-heading_medium">{currentPage}/{totalPages}</div>
+                <lightning-button-icon data-id="right-button" icon-name="utility:right"  alternative-text="Right" title="Right" onclick={handlePageRight}></lightning-button-icon>
+            </div>
+        </div>
+    </div>
+</template>
